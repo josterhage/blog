@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "system559.ajax.url",
+      "type": "java.lang.String",
+      "description": "Location of AJAX resources."
+    },
+    {
+      "name": "system559.ajax.method",
+      "type": "java.lang.String",
+      "description": "Method (http or https) for retrieving AJAX resources."
+    }
+  ] }

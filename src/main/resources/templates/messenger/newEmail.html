@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
+<head th:replace="main_template :: head (title='Send Email')"></head>
+
+<body>
+
+<header th:replace="main_template :: header"></header>
+
+<div class="container-fluid scrollable-body">
+    <div th:replace="main_template :: leftBar"></div>
+    <div class="container-md my-5">
+        <form th:action="'/messenger/newEmail/' + ${userId}" method="post">
+            <div class="form-group">
+                <label for="from">Your email address:</label>
+                <input class="form-control" type="text" name="from" id="from">
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input class="form-control" type="text" name="subject" id="subject">
+            </div>
+            <div class="form-group">
+                <label for="body">Body:</label>
+                <textarea class="form-control" name="body" id="body" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-sm btn-primary" type="submit">Submit</button>
+                <button class="btn btn-sm btn-secondary" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+    <div class="overlay"></div>
+</div>
+
+<div th:replace="main_template :: loginForm"></div>
+
+<div th:replace="main_template :: registerForm"></div>
+
+<div th:replace="main_template :: messageBox"></div>
+
+<div th:replace="main_template :: termsBox"></div>
+
+<script src="/js/RegisterForm.js"></script>
+<script src="/js/LoginForm.js"></script>
+
+<script th:inline="javascript">
+    let ajaxHost = "[(${ajaxHost})]";
+
+    let registerForm;
+    let loginForm;
+
+    $('#loginModal').on('shown.bs.modal',function() {
+        $('#loginUsername').trigger('focus');
+    });
+
+    $('#registerModal').on('shown.bs.modal',function() {
+        $('#registerUsername').trigger('focus');
+    })
+
+    let $registerButton = $('#registerButton');
+    let $loginButton = $('#loginButton');
+
+    $registerButton.on('click', function () {
+        registerForm = new RegisterForm();
+        registerForm.init();
+    });
+
+    $loginButton.on('click', function () {
+        loginForm = new LoginForm();
+        loginForm.init();
+    })
+
+    $(document).ready(function () {
+        siteWideStartup();
+
+    });
+</script>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<body>
+<div th:fragment="form" sec:authorize="isAnonymous()" class="modal fade" id="registerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- UPDATE -->
+            <form th:action="@{/register}" method="post">
+                <div class="modal-body container-fluid">
+
+                    <div class="form-row">
+                        <div class="col-3">
+                            <label for="username">Username:</label>
+                        </div>
+                        <div class="col">
+                            <span id="usernameValidation"></span>
+                        </div>
+                    </div>
+                    <div class="form-row mb-2">
+                        <div class="col">
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder="Username">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-3">
+                            <label for="password">Password:</label>
+
+                        </div>
+                        <div class="col">
+                            <span id="passwordValidation"></span>
+                        </div>
+                    </div>
+                    <div class="form-row mb-2">
+                        <div class="col">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Password">
+
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-3">
+                            <label for="firstName">First Name:</label>
+                        </div>
+                        <div class="col">
+                            <span id="firstNameValidation"></span>
+                        </div>
+                    </div>
+                    <div class="form-row mb-2">
+                        <div class="col">
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Luke">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-3">
+                            <label for="lastName">Last Name:</label>
+                        </div>
+                        <div class="col">
+                            <span id="lastNameValidation"></span>
+                        </div>
+                    </div>
+                    <div class="form-row mb-2">
+                        <div class="col">
+                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                   placeholder="Skywalker">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-3">
+                            <label for="email">Email:</label>
+                        </div>
+                        <div class="col">
+                            <span id="emailValidation"></span>
+                        </div>
+                    </div>
+                    <div class="form-row mb-2">
+                        <div class="col">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="ls@jt.org">
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-2 form-check">
+                        <div class="col">
+                            <input type="checkbox" class="form-check-input" id="ageCheck">
+                            <label class="form-check-label" for="ageCheck">I am at least 13 years old.</label>
+                        </div>
+                        <div class="col">
+                            <span id="ageCheckValidation"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-2 form-check">
+                        <div class="col">
+                            <input type="checkbox" class="form-check-input" id="termsCheck">
+                            <label class="form-check-label" for="termsCheck">I agree to the user agreement.</label>
+                        </div>
+                        <div class="col">
+                            <span id="termsCheckValidation"></span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

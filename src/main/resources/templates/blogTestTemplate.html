@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head></head>
+
+<body>
+<div th:fragment="blogTest" id="post">
+
+
+    <!--/*@thymesVar id="post" type="com.system559.blog.model.blog.Post"*/-->
+    <div th:text="${post.postId}"></div><br/>
+    <div th:text="${post.title}"></div><br/>
+
+</div>
+
+
+<script>
+
+</script>
+
+</body>
+
+</html>

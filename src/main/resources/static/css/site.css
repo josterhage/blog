@@ -1,0 +1,125 @@
+body {
+    overflow: hidden;
+}
+
+.img-brand {
+    height: 40px;
+}
+
+.uber-bar {
+    background: #bbb;
+}
+/*  my instinct is that there is another way to do this, but for now
+    this will ensure that divs are scrollable if they get tall enough
+*/
+.scrollable-body {
+    height: calc(100vh - 110px);
+    overflow-y:auto;
+}
+
+.half-height {
+    height: calc(50vh - 55px);
+    /*position: fixed;*/
+}
+
+.scrollable {
+    overflow-y:auto;
+}
+
+.sticky {
+    position:sticky;
+    top:0;
+    background-color:white;
+}
+
+/* leftBar styling from https://bootstrapious.com/p/bootstrap-sidebar */
+#leftBar {
+    width: 250px;
+    position: fixed;
+    top: 102px;
+    left: -250px;
+    height: calc(100vh - 110px);
+    z-index: 999;
+    transition: all 0.3s;
+    overflow-y: scroll;
+    background: #00508c;
+    color: #eee;
+}
+
+#leftBar.active {
+    left: 0;
+}
+
+#leftBar-content p {
+    margin-bottom: 0.5rem;
+}
+
+#leftBar-content li {
+    padding-left: 4px;
+}
+
+#leftBar-content a {
+    color: #bbb;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: calc(100vh - 110px);
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+    top: 110px;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+#main {
+    position: absolute;
+    top:110px;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.btn-delete {
+    position: absolute;
+    top:5px;
+    right:15px;
+}
+
+@media (max-width: 768px) {
+    #leftBar {
+        top: 152px;
+        height: calc(100vh - 152px);
+    }
+    .overlay {
+        top: 152px;
+    }
+
+    #main {
+        top: 152px;
+    }
+
+    .scrollable-body{
+        height: calc(100vh - 152px);
+    }
+
+    .half-height{
+        height:auto;
+    }
+
+    .scrollable-sm{
+        height: calc(100vh - 152px);
+        overflow-y: auto;
+    }
+
+    /* #blog {
+        top: 152px;
+        height: calc(100vh - 152px);
+    } */
+}

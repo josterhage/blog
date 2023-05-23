@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
+<head th:replace="main_template :: head (title='Account management')"></head>
+
+<body>
+
+<header th:replace="main_template :: header"></header>
+
+<div class="container-md mt-2 mt-lg-5">
+    <div th:replace="main_template :: leftBar"></div>
+    <div class="row border-muted border-bottom mb-1 mb-md-2">
+        <h2 class="text-center">Account Management</h2>
+    </div>
+    <div class="row border-secondary border-bottom pb-md-1" id="acctUser">
+        <div class="col-6 col-md-3 p-2 font-weight-bold">Username</div>
+        <div class="col-6 col-md-3 p-2" id="username"></div>
+        <div class="col-6 col-md-3 p-2 font-weight-bold">Role</div>
+        <div class="col-6 col-md-3 p-2" id="userRole"></div>
+    </div>
+
+    <div class="row border-secondary border-bottom pb-md-1" id="acctName">
+        <label for="firstNameUpdate" class="col col-md-3 p-2 font-weight-bold" data-container="body" data-toggle="popover"
+               data-placement="right" data-content="">First Name</label>
+        <div class="col-6 p-2">
+            <span id="firstName"></span>
+            <input type="text" class="form-control d-none" id="firstNameUpdate">
+        </div>
+
+        <div class="col-6 col-md-3 p-2 ml-auto ml-md-0">
+            <button class="btn btn-sm btn-primary" id="firstNameChange" data-container="body" data-toggle="popover"
+                    data-placement="right" data-content="">Change
+            </button>
+            <button class="btn btn-sm btn-primary d-none" id="firstNameCancel">Cancel</button>
+        </div>
+    </div>
+
+    <div class="row border-secondary border-bottom pb-md-1">
+        <label for="lastNameUpdate" class="col col-md-3 p-2 font-weight-bold">Last Name</label>
+        <div class="col-6 p-2">
+            <span id="lastName"></span>
+            <input type="text" class="form-control d-none" id="lastNameUpdate">
+        </div>
+
+        <div class="col-6 col-md-3 p-2 ml-auto ml-md-0">
+            <button class="btn btn-sm btn-primary" id="lastNameChange" data-container="body" data-toggle="popover"
+                    data-placement="right" data-content="">Change</button>
+            <button class="btn btn-sm btn-secondary d-none" id="lastNameCancel">Cancel</button>
+        </div>
+    </div>
+
+    <div class="row border-secondary border-bottom pb-md-1">
+        <label for="emailUpdate" class="col col-md-3 p-2 font-weight-bold">Email</label>
+        <div class="col-6 p-2">
+            <span id="email"></span>
+            <input type="text" class="form-control d-none" id="emailUpdate">
+        </div>
+        <div class="col-6 col-md-3 p-2 ml-auto ml-md-0">
+            <button class="btn btn-sm btn-primary" id="emailChange" data-container="body" data-toggle="popover"
+                    data-placement="right" data-content="">Change</button>
+            <button class="btn btn-sm btn-secondary d-none" id="emailCancel">Cancel</button>
+        </div>
+    </div>
+
+    <div class="row d-none pb-md-1" id="passwordInput">
+        <div class="col">
+            <div class="row">
+                <div class="col-3 p-2">Old password</div>
+                <div class="col-6 p-2">
+                    <input type="password" class="form-control" id="oldPassword">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-3 p-2">New password</div>
+                <div class="col-6 p-2">
+                    <input type="password" class="form-control" id="newPassword">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row border-secondary border-bottom pb-md-1">
+        <div class="col-3 p-2">
+            <button class="btn btn-sm btn-primary" id="passwordChange" data-container="body" data-toggle="popover"
+                    data-placement="left" data-content="">Change Password</button>
+            <button class="btn btn-sm btn-primary d-none" id="passwordCancel">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/AccountPage.js"></script>
+
+<script th:inline="javascript">
+    let ajaxHost = "[(${ajaxHost})]";
+    const username = [[${#httpServletRequest.remoteUser}]];
+
+    let $acctUser = $('#acctUser');
+    let $acctName = $('#acctName');
+
+    let accountPage = new AccountPage(username);
+
+    $(document).ready(function () {
+        siteWideStartup();
+        accountPage.init();
+    });
+</script>
+
+</body>
+</html>

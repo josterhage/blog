@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+
+<head></head>
+
+<body>
+
+<!--/*@thymesVar id="category" type="com.system559.blog.model.blog.Category"*/-->
+<tr th:fragment="categoryStub (category)" th:data-id="${category.categoryId}" th:inline="text">
+    <th scope="row" colspan="4" data-role="category-name">[[${category.name}]]</th>
+    <td colspan="1">
+        <button type="button" class="btn btn-sm btn-primary" th:data-id="${category.categoryId}" data-action="rename">Rename</button>
+    </td>
+</tr>
+
+<!--/*@thymesVar id="tag" type="com.system559.blog.model.blog.Tag"*/-->
+<tr th:fragment="tagStub (tag)" th:data-id="${tag.tagId}" th:inline="text">
+    <th scope="row" colspan="4" data-role="tag-name">[[${tag.name}]]</th>
+    <td colspan="1">
+        <button type="button" class="btn btn-sm btn-primary" th:data-id="${tag.tagId}" data-action="rename">Rename</button>
+    </td>
+</tr>
+
+<!--/*@thymesVar id="post" type="com.system559.blog.model.blog.Post"*/-->
+<!--/*@thymesVar id="author" type="com.system559.blog.model.User"*/-->
+<tr th:fragment="postStub (post,author)" th:data-id="${post.postId}" th:inline="text">
+    <th scope="row">[[${post.postId}]]</th>
+    <td><a href="#">[[${author.username}]]</a></td>
+    <td><a th:href="'/?id=' + ${post.postId}">[[${post.title}]]</a></td>
+    <td>[[${#temporals.format(post.createdDateTime,'MMMM d, yyyy; hh:mm:ss z')}]]</td>
+    <td>[[${#temporals.format(post.lastUpdateDateTime,'MMMM d, yyyy; hh:mm:ss z')}]]</td>
+</tr>
+
+</body>
+
+</html>

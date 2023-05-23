@@ -1,0 +1,87 @@
+[
+  {
+    "message": "passwordResetComplete",
+    "header": "Success",
+    "body": "Your password has been reset"
+  },
+  {
+    "message": "passwordResetSent",
+    "header": "Success",
+    "body": "A password reset message has been sent to your registered email address"
+  },
+  {
+    "message": "emailExists",
+    "header": "Sorry",
+    "body": "Another user has already registered an account with that email address. Please enter a different one."
+  },
+  {
+    "message": "usernameExists",
+    "header": "Sorry",
+    "body": "Another user has already registered an account with that Username. Please select a different one."
+  },
+  {
+    "message": "passwordInsecure",
+    "header": "For your protection...",
+    "body": "Your password did not meet our complexity requirements. Please enter a new one that contains at least one capital letter, one lower case letter, one number, one special character, and is at least 8 characters long."
+  },
+  {
+    "message": "accountRegistered",
+    "header": "Registered",
+    "body": "Your account has been registered, please check your email address for a confirmation link."
+  },
+  {
+    "message":"accountConfirmed",
+    "header": "Confirmed",
+    "body": "Thank you for confirming your account, you have been logged in and may begin using the site."
+  },
+  {
+    "message": "emailUpdate",
+    "header": "Updated",
+    "body": "Your email address has been updated."
+  },
+  {
+    "message": "oldPasswordIncorrect",
+    "header": "Sorry",
+    "body": "The password you entered does not match your old password, please try again."
+  },
+  {
+    "message": "passwordChanged",
+    "header": "Password Changed",
+    "body": "Your password has been updated."
+  },
+  {
+    "message" : "userConfirmed",
+    "header" : "User Confirmed",
+    "body" : "The user's email address is now confirmed."
+  },
+  {
+    "message": "userEnabled",
+    "header": "Account Enabled",
+    "body": "The user's account has been enabled."
+  },
+  {
+    "message": "userDisabled",
+    "header": "Account Disabled",
+    "body": "The user's account has been disabled."
+  },
+  {
+    "message": "invalidCredentials",
+    "header": "Invalid username or password",
+    "body": "You have entered an invalid username or password."
+  },
+  {
+    "message": "validCredentials",
+    "header": "Credentials valid",
+    "body": "Welcome"
+  },
+  {
+    "message": "userNotFound",
+    "header": "User not found",
+    "body": "No account with that username exists."
+  },
+  {
+    "message": "invalidToken",
+    "header": "Invalid token",
+    "body": "The confirmation token you provided is invalid. Re-check the email you received and try entering the link again, ensuring every character is copied to your browser."
+  }
+]

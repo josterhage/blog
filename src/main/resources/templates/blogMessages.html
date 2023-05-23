@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head></head>
+
+<body>
+
+<div th:fragment="blogPost" th:id="'post' + ${post.postId}">
+    <!--/*@thymesVar id="post" type="com.system559.blog.model.blog.Post"*/-->
+    <!--/*@thymesVar id="author" type="com.system559.blog.model.User"*/-->
+    <div class="col p-2">
+        <div class="row border-muted border-top mt-2 pt-2">
+            <div class="col d-flex">
+
+                <h2 th:text="${post.title}"></h2>
+                <!--/*@thymesVar id="owner" type="java.lang.String"*/-->
+                <a th:if="${#httpServletRequest.remoteUser} == ${author.username}" href="#"
+                   class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></a>
+            </div>
+        </div>
+        <span class="small">
+        <a th:text="${author.username}" id="postAuthor" th:href="'/messenger/newEmail/' + ${author.userId}"></a></span>
+        <span th:text="${author.userRole}" class="ml-2 small text=muted"></span><br/>
+        <span class="small" th:text="${#temporals.format(post.createdDateTime,'MMMM d, yyyy; hh:mm:ss z')}"></span><br/>
+        <div class="my-2">
+            Category:<br/>
+            <span class="badge badge-pill" th:text="${post.category.name}"></span>
+        </div>
+        <div th:text="${post.body}"></div>
+        <div class="my-2">
+            Tags:<br/>
+            <span th:each="tag : ${post.tags}" th:text="${tag.name}" class="badge badge-info mr-1"></span>
+        </div>
+
+        <div id="postReplyBox">
+            <div sec:authorize="isAuthenticated()" class="row">
+                <div class="col">
+                    <button class="btn btn-primary btn-sm reply-click" type="button" th:id="'#replyTo'+ ${post.postId}"
+                            th:data-post="${post.postId}" data-parent="post">Reply
+                    </button>
+                </div>
+            </div>
+            <div sec:authorize="isAnonymous()" class="row">
+                <div class="col">
+                    <button class="btn btn-primary btn-sm login-to-comment" type="button" data-toggle="modal"
+                            data-target="#loginModal">Login to comment
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-4" id="commentsSection">
+            <h4>Comments</h4>
+            <div th:if="${post.comments.size > 0}" class="accordion pb-2" id="childCommentsContainerPost">
+                <div th:each="commentRow : ${post.comments}" class="mb-2">
+                    <div th:replace="comment :: commentView(${commentRow},${commentRow.author},'Post')"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--/*@thymesVar id="post" type="com.system559.blog.model.blog.Post"*/-->
+<!--/*@thymesVar id="author" type="com.system559.blog.model.User"*/-->
+<li th:fragment="postHeader (post)" th:inline="text" class="left-bar-li">
+    <a th:href="'/?post=' + ${post.postId}" th:inline="text">[[${post.title}]]</a><br/>
+    Author: [[${post.author.username}]]<br/>
+    [[${post.comments.size}]] [[${post.comments.size} == 1 ? 'comment' : 'comments']]
+</li>
+
+<div th:fragment="postHeaders (posts)">
+    <div th:each="post : ${posts}">
+        <li th:replace=":: postHeader (${post})"></li>
+    </div>
+</div>
+
+</body>
+
+</html>

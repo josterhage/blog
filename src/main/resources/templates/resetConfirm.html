@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
+<head th:replace="main_template :: head (title='')"></head>
+
+<body>
+
+<header th:replace="main_template :: header"></header>
+
+<div class="container-fluid">
+    <div th:replace="leftBar :: bar"></div>
+
+    <div class="container-md">
+        <div class="col my-auto h2">Password Reset</div>
+
+        <form th:action="@{/account/resetPassword/reset}" method="post">
+            <input type="hidden" name="token" id="token" th:value="${token}">
+
+            <div class="row">
+                <div class="col-3 p-2">
+                    <label for="password">New Password:</label>
+                </div>
+                <div class="col-6 p-2">
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="col-3 p-2">
+                    <input type="submit" class="btn btn-sm btn-primary">
+                    <input type="reset" class="btn btn-sm btn-secondary">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    let ajaxHost = "[(${ajaxHost})]";
+    $(document).ready(function () {
+        siteWideStartup();
+    });
+</script>
+
+</body>
+
+</html>

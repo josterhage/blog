@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
+<head th:replace="main_template :: head (title='Account Management - Administrator')"></head>
+
+<body>
+
+<header th:replace="main_template :: header"></header>
+
+<div th:replace="main_template :: leftBar"></div>
+<div class="scrollable-body mt-1 mt-md-2">
+    <h2 class="text-center">Account Management</h2>
+    <div class="container-md"></div>
+</div>
+
+<script src="/js/UserManagementPage.js"></script>
+
+<script th:inline="javascript">
+
+    let ajaxHost = "[(${ajaxHost})]";
+    let managementPage = new UserManagementPage();
+    let $mainContainer = $('.container-md');
+    let goneTooSmall = false;
+    let $spinner = $('<div class="spinner-border" role="status"></div>');
+    let $sizeWarning = $("<span class='small'>This page is not recommended for view on small screens</span>");
+
+    $(document).ready(async function () {
+        siteWideStartup();
+
+        $spinner.addClass('text-center');
+        $spinner.addClass('mx-auto');
+        $spinner.addClass('mt-5');
+        $mainContainer.append($spinner);
+        managementPage.init().then(function () {
+                $mainContainer.empty();
+                $mainContainer.append(managementPage.getTable());
+                $spinner.removeClass('text-center');
+                $spinner.removeClass('mt-5');
+            }
+        );
+        if ($(window).width() < 500) {
+            goneTooSmall = true;
+            $($sizeWarning).insertBefore($mainContainer);
+        }
+    });
+
+    $(window).on('resize', function () {
+        if ($(window).width() < 500) {
+            $sizeWarning.insertBefore($mainContainer);
+            goneTooSmall = true;
+        } else {
+            if (goneTooSmall) {
+                $sizeWarning.remove();
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

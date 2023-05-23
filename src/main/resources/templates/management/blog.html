@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
+<head th:replace="main_template :: head (title='Blog Management - Administrator')"></head>
+
+<body>
+
+<header th:replace="main_template :: header"></header>
+
+<div th:replace="main_template :: leftBar"></div>
+
+<div class="mt-1 mt-md-2">
+    <h2 class="text-center">Blog Management</h2>
+    <div class="container-md mt-1 mt-d-2 scrollable-sm">
+        <div class="row half-height m-1 m-md-2">
+            <div class="col-md mr-md-5 scrollable h-100 mb-1 mb-md-2">
+                <h2 class="text-center sticky">Categories</h2>
+                <div class="row">
+                    <table class="table">
+                        <thead class="sticky">
+                        <tr>
+                            <th scope="col" colspan="4" class="sticky">Name</th>
+                            <th scope="col" colspan="1" class="sticky">Rename</th>
+                        </tr>
+                        </thead>
+                        <tbody id="categoryTable">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row form-inline">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="newCategoryText" placeholder="NewCategory">
+                    </div>
+                    <div class="form-group ml-2">
+                        <button type="button" class="btn btn-sm btn-primary mx-2" id="newCategorySubmit">Submit</button>
+                        <button type="button" class="btn btn-sm btn-secondary mx-2" id="newCategoryReset">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md ml-md-5 scrollable h-100 mb-1 mb-md-2">
+                <h2 class="text-center sticky">Tags</h2>
+                <div class="row">
+                    <table class="table">
+                        <thead class="sticky">
+                        <tr>
+                            <th scope="col" colspan="4" class="sticky">Name</th>
+                            <th scope="col" colspan="1" class="sticky">Rename</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tagTable">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row form-inline">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="newTagText" placeholder="NewTag">
+                    </div>
+                    <div class="form-group ml-2">
+                        <button type="button" class="btn btn-sm btn-primary mx-2" id="newTagSubmit">Submit</button>
+                        <button type="button" class="btn btn-sm btn-secondary mx-2" id="newTagReset">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row half-height m-1 m-md-2">
+            <div class="col scrollable h-100 mb-2">
+                <h2 class="text-center sticky">Posts</h2>
+                <table class="table">
+                    <thead class="sticky">
+                    <tr>
+                        <th scope="col" class="sticky">Id</th>
+                        <th scope="col" class="sticky">Author</th>
+                        <th scope="col" class="sticky">Title</th>
+                        <th scope="col" class="sticky">Created</th>
+                        <th scope="col" class="sticky">Last Edit</th>
+                    </tr>
+                    </thead>
+                    <tbody id="postTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/BlogManagementPage.js"></script>
+
+<script th:inline="javascript">
+    let ajaxHost = "[(${ajaxHost})]";
+    let blogManagementPage;
+
+    $(document).ready(function () {
+        siteWideStartup();
+        blogManagementPage = new BlogManagementPage();
+    });
+</script>
+
+</body>
+
+</html>

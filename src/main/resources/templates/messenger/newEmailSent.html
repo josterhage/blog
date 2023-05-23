@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
+<head th:replace="main_template :: head (title=${actionStatus.actionSuccessful} ? 'Email sent' : 'Email not sent')"></head>
+
+<body>
+
+<header th:replace="main_template :: header"></header>
+
+<div class="container-fluid scrollable-body">
+    <div th:replace="main_template :: leftBar"></div>
+    <div class="container-md my-5">
+        <h2 th:if="${actionStatus.actionSuccessful}">Success!</h2>
+        <h2 th:unless="${actionStatus.actionSuccessful}">Failure!</h2>
+        <p th:if="${actionStatus.actionSuccessful}">Your message was sent!</p>
+        <p th:unless="${actionStatus.actionSuccessful}">Your token is invalid. Please try again.</p>
+    </div>
+    <div class="overlay"></div>
+</div>
+
+<div th:replace="main_template :: loginForm"></div>
+
+<div th:replace="main_template :: registerForm"></div>
+
+<div th:replace="main_template :: messageBox"></div>
+
+<div th:replace="main_template :: termsBox"></div>
+
+<script src="/js/RegisterForm.js"></script>
+<script src="/js/LoginForm.js"></script>
+
+<script th:inline="javascript">
+    let ajaxHost = "[(${ajaxHost})]";
+
+    let registerForm;
+    let loginForm;
+
+    $('#loginModal').on('shown.bs.modal', function () {
+        $('#loginUsername').trigger('focus');
+    });
+
+    $('#registerModal').on('shown.bs.modal', function () {
+        $('#registerUsername').trigger('focus');
+    })
+
+    let $registerButton = $('#registerButton');
+    let $loginButton = $('#loginButton');
+
+    $registerButton.on('click', function () {
+        registerForm = new RegisterForm();
+        registerForm.init();
+    });
+
+    $loginButton.on('click', function () {
+        loginForm = new LoginForm();
+        loginForm.init();
+    })
+
+    $(document).ready(function () {
+        siteWideStartup();
+
+    });
+</script>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<body>
+<div th:fragment="form" sec:authorize="isAnonymous()" class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="loginFormRestore()">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- UPDATE -->
+            <div class="modal-body">
+                <form th:action="@{/login}" method="post" id="loginForm">
+
+                    <div class="form-group">
+                        <label for="username" autofocus>Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password:</label>
+                        <input type="password" class="form-control" id="loginPassword" name="password"
+                               placeholder="Password">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="loginSubmit" onclick="checkLogin()">Login</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
+                <div class="d-none" id="resetForm">
+                    <input type="hidden" id="csrfParam" th:value="${_csrf.parameterName}">
+                    <input type="hidden" id="csrfToken" th:value="${_csrf.getToken()}">
+                    <div class="form-group">
+                        <label for="resetUsername">Username:</label>
+                        <input type="text" class="form-control" id="resetUsername" name="resetUsername" placeholder="Username">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="resetSubmit">Submit</button>
+                        <button type="reset" class="btn btn-secondary" id="resetReset">Reset</button>
+                    </div>
+                </div>
+                <div class="small p-2" id="loginBottom">
+                    <a href="#" id="forgotPassword" onclick="forgotPasswordInit()">Forgot your password?</a><br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
+<head th:replace="main_template :: head (title='Home')"></head>
+
+<body>
+
+<header th:replace="main_template :: header"></header>
+
+<div class="container-fluid scrollable-body">
+    <div th:replace="main_template :: leftBar"></div>
+    <div class="container-md">
+        <div class="w-100 mx-2">
+            <div id="blogText" class="col p-2">
+            </div>
+        </div>
+    </div>
+    <div class="overlay"></div>
+</div>
+
+<div th:replace="main_template :: loginForm"></div>
+
+<div th:replace="main_template :: registerForm"></div>
+
+<div th:replace="main_template :: messageBox"></div>
+
+<div th:replace="main_template :: termsBox"></div>
+
+<script src="/js/RegisterForm.js"></script>
+<script src="/js/LoginForm.js"></script>
+<script src="/js/NewCommentManager.js"></script>
+
+<script th:inline="javascript">
+    let actionStatus = [[${actionStatus}]];
+    let ajaxHost = "[(${ajaxHost})]";
+
+    let messageBox = new MessageBox(actionStatus);
+    let registerForm;
+    let loginForm;
+
+    $('#loginModal').on('shown.bs.modal', function() {
+        $('#loginUsername').trigger('focus');
+    })
+
+    $('#registerModal').on('shown.bs.modal'),function() {
+        $('#registerUsername').trigger('focus');
+    }
+
+    if (actionStatus != null) {
+        messageBox.init();
+    }
+
+    let $registerButton = $('#registerButton');
+    let $loginButton = $('#loginButton');
+
+    $registerButton.on('click', function () {
+        registerForm = new RegisterForm();
+        registerForm.init();
+    });
+
+    $loginButton.on('click', function () {
+        loginForm = new LoginForm();
+        loginForm.init();
+    })
+
+    $(document).ready(function () {
+        siteWideStartup();
+
+    });
+
+    let blogPost= [[${param.id} != null ? ${param.id} : 'newest']];
+
+    $.ajax({
+        url: `${ajaxHost}/blog/${blogPost}`,
+        type: 'get',
+        success: function (data) {
+            $('#blogText').replaceWith($(data));
+        }
+    }).then(function () {
+        let newCommentManager = new NewCommentManager();
+        newCommentManager.init();
+
+        $('.login-to-comment').on('click', function () {
+            loginForm = new LoginForm();
+            loginForm.init();
+        });
+
+        $('.delete-item').on('click', function () {
+            let item = $(this).data('item');
+            let itemId = $(this).data('id');
+            let url =  `${ajaxHost}/blog/${item}/delete/${itemId}`;
+            if (confirm('Are you sure you want to delete this comment? All replies will be deleted as well.')) {
+                $.ajax({
+                    url: url,
+                    type: 'delete',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(getCsrf().header, getCsrf().token);
+                    },
+                    success: function () {
+                        let $deletedMessage = $('<div class="text-danger">Deleted</div>');
+
+                        $(`.card[data-commentId="${itemId}"]`).replaceWith($deletedMessage);
+                        $deletedMessage.fadeOut(2000);
+                    }
+                })
+            }
+        });
+    });
+
+
+</script>
+
+
+</script>
+
+</body>
+
+</html>
